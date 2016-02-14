@@ -1,0 +1,18 @@
+{
+	"affirmative":{
+		"sequential":true,
+		"list":[
+			"ok!",
+			"I think I can do it",
+			"Consider it done"
+		]
+	},
+	"negative":{
+		"sequential":true,
+		"list":[
+			"no.",
+			"nah",
+			"Sorry I cannot do that"
+		]
+	}
+}

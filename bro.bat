@@ -1,0 +1,1 @@
+browserify .\src\background.js -o .\build\background.js

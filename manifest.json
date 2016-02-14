@@ -1,0 +1,38 @@
+{
+
+  "name": "Hello World!",
+  "description": "My first Chrome App.",
+  "version": "0.1",
+
+  "minimum_chrome_version": "40",
+
+  "permissions": [
+    "activeTab",
+    "https://ajax.googleapis.com/",
+    "tts" 
+  ],
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "src/index.html"
+  },
+
+  "background": {
+    "scripts": ["build/background.js"],
+    "persistent": false
+  },
+
+  "content_scripts": [
+    {
+      "matches": [ "http://*/*", "https://*/*" ],
+      "js": ["src/js/inject.js"]
+    }
+  ],
+
+  // "chrome_url_overrides" : {
+  //   "newtab": "src/newtab.html"
+  // }
+  //"icons": { "16": "calculator-16.png", "128": "calculator-128.png" }
+
+  "manifest_version": 2
+}

@@ -1,0 +1,11 @@
+{
+  "name": "node-pet",
+  "version": "1.0.0",
+  "description": "personal cyber navi like rockman.exe and JARVIS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dickson Chui (vicksonzero)",
+  "license": "MIT"
+}

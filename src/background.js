@@ -1,7 +1,8 @@
 
 
-var ghostScript = require("./ghost/jarvis/");
+var ghostScript = require("./ghost/jarvis/jarvis");
 var Ghost = require("./js/Ghost")(ghostScript);
+var username = "Dickson";
 
 
 var game = {
@@ -10,7 +11,10 @@ var game = {
 	greetRandom: greetRandom,
 	speak: speak,
 	saveGhost: saveGhost,
-	loadGhost: loadGhost
+	loadGhost: loadGhost,
+	getTime: getTime,
+	getDate: getDate,
+	clearGhost: clearGhost
 };
 
 window.game = game;
@@ -18,12 +22,22 @@ window.game = game;
 // Register Event handlers
 chrome.runtime.onInstalled.addListener(function(){
 	//showAllVoices();
-	game.ghostInstance = new Ghost();
-	console.log(game.ghostInstance);
+	Promise.resolve()
+	.then(function(){
+		// create ghost instance
+		game.ghostInstance = new Ghost(username);
 
-	game.loadGhost(game.ghostInstance);
+		// fill in ghost persistency
+		return new Promise(function(resolve, reject){
+			game.loadGhost(game.ghostInstance, resolve);
+		});
+	})
+	.then(function(){
 
-	game.ghostInstance.onInstalled(game);
+		// final check of ghost and let it come to life
+		console.log(game.ghostInstance);
+		game.ghostInstance.onInstalled(game);
+	});
 
 	var recognition = new webkitSpeechRecognition();
 	recognition.onresult = function(event) { 
@@ -33,11 +47,16 @@ chrome.runtime.onInstalled.addListener(function(){
 });
 //windows.onCreated
 //onStartup
-chrome.windows.onCreated.addListener(function () {
+// chrome.windows.onCreated.addListener(function () {
+
+// });
+
+
+chrome.runtime.onSuspend.addListener(function(){
+	//showAllVoices();
+	game.saveGhost(game.ghostInstance);
 
 });
-
-
 
 
 
@@ -50,6 +69,7 @@ function greetRandom (ghost) {
 
 
 function speak (msg) {
+	console.log("speak: " + msg);
 	chrome.tts.speak(msg, {'voiceName': 'Google UK English Male', pitch:1.2});
 }
 
@@ -72,22 +92,44 @@ function saveGhost(ghost) {
 	// Save it using the Chrome extension storage API.
 	chrome.storage.sync.set({'ghostPersistent': persistent}, function() {
 		// Notify that we saved.
-		console.log(chrome.runtime.lastError);
+		//console.log(chrome.runtime.lastError);
 		message('Settings saved');
 
 	});
 }
 
-function loadGhost(ghost) {
+function loadGhost(ghost, callback) {
 	// Save it using the Chrome extension storage API.
 	chrome.storage.sync.get('ghostPersistent', function(persistent) {
 		// Notify that we saved.
-		console.log(chrome.runtime.lastError);
-		if(persistent){
-			ghost.persistent = persistent;
+		if(persistent.ghostPersistent && Object.keys(persistent.ghostPersistent).length>0){
+			ghost.setPersistent(persistent.ghostPersistent);
+		}else{
+			console.log("need persist");
+			ghost.initPersistent();
 		}
-
+		callback();
 	});
+}
+
+function clearGhost (callback) {
+	chrome.storage.sync.remove('ghostPersistent',callback);
+}
+
+function getTime() {
+	var now = new Date();
+	var time = "" 
+		+ now.getHours() + ":"  
+		+ now.getMinutes();
+	return time;
+}
+
+function getDate() {
+	var now = new Date(); 
+	var date = "Last Sync: " + now.getDate() + "/"
+		+ (now.getMonth()+1)  + "/" 
+		+ now.getFullYear();
+	return date;
 }
 
 //https://gist.github.com/danharper/8364399 

@@ -1,4 +1,9 @@
-chrome.tts.speak('Hello, Dickson.');
-var bgGame = chrome.extension.getBackgroundPage().game;
+
+
+
+
+bgGame = chrome.extension.getBackgroundPage().game;
+
+window.bgGame = bgGame;
 console.log(bgGame);
-bgGame.greetRandom(bgGame.ghostInstance);
+bgGame.ghostInstance.onPopup(bgGame);

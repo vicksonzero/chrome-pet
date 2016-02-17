@@ -20,5 +20,9 @@ module.exports = (function () {
 		//this.game
 	};
 
+	p.value = function value () {
+		//this.game
+	};
+
 	return Plugin;
 })();

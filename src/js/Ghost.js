@@ -1,6 +1,10 @@
+const Logger = require("./lib/Logger");
+
 module.exports = function(ghostScript){
 	function Ghost(username){
 		this.user = username;
+		this._logger = new Logger("Ghost");
+		console.log(this._logger);
 	}
 
 	function validateGhostScript (ghostScript) {
@@ -18,6 +22,7 @@ module.exports = function(ghostScript){
 	};
 
 	p.onInstalled = function onInstalled (game) {
+		this._logger.info("onInstalled");
 		var phrase = this.randomPhrase(this.scripts.installed, this.persistent.scripts.installed);
 		game.speak( this.injectKeywords(phrase, game) );
 		console.log(this.persistent.scripts.installed);

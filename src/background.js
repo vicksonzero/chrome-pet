@@ -3,6 +3,8 @@
 var ghostScript = require("./ghost/jarvis/jarvis");
 var Ghost = require("./js/Ghost")(ghostScript);
 var username = "Dickson";
+const Logger = require("./js/lib/Logger");
+var _logger = new Logger("Game");
 
 
 var game = {
@@ -69,7 +71,7 @@ function greetRandom (ghost) {
 
 
 function speak (msg) {
-	console.log("speak: " + msg);
+	_logger.info("speak: " + msg);
 	chrome.tts.speak(msg, {'voiceName': 'Google UK English Male', pitch:1.2});
 }
 
@@ -126,7 +128,7 @@ function getTime() {
 
 function getDate() {
 	var now = new Date(); 
-	var date = "Last Sync: " + now.getDate() + "/"
+	var date = "" + now.getDate() + "/"
 		+ (now.getMonth()+1)  + "/" 
 		+ now.getFullYear();
 	return date;

@@ -3,17 +3,27 @@
 var ghostScript = require("./ghost/jarvis/");
 var Ghost = require("./js/Ghost")(ghostScript);
 
-var ghostInstance;
-// onInstalled
-// onStartup
+
+var game = {
+	ghostInstance: null,
+	ghostScript: ghostScript,
+	greetRandom: greetRandom,
+	speak: speak,
+	saveGhost: saveGhost,
+	loadGhost: loadGhost
+};
+
+window.game = game;
+
+// Register Event handlers
 chrome.runtime.onInstalled.addListener(function(){
 	//showAllVoices();
+	game.ghostInstance = new Ghost();
+	console.log(game.ghostInstance);
 
+	game.loadGhost(game.ghostInstance);
 
-	ghostInstance = new Ghost();
-	console.log(ghostInstance);
-
-	greetRandom(ghostInstance);
+	game.ghostInstance.onInstalled(game);
 
 	var recognition = new webkitSpeechRecognition();
 	recognition.onresult = function(event) { 
@@ -21,8 +31,18 @@ chrome.runtime.onInstalled.addListener(function(){
 	}
 	recognition.start();
 });
+//windows.onCreated
+//onStartup
+chrome.windows.onCreated.addListener(function () {
+
+});
 
 
+
+
+
+
+// helper functions
 
 function greetRandom (ghost) {
 	speak(ghost.getGreetingPhrase());
@@ -47,5 +67,27 @@ function showAllVoices () {
 	});
 }
 
+function saveGhost(ghost) {
+	var persistent = ghost.getPersistent();
+	// Save it using the Chrome extension storage API.
+	chrome.storage.sync.set({'ghostPersistent': persistent}, function() {
+		// Notify that we saved.
+		console.log(chrome.runtime.lastError);
+		message('Settings saved');
+
+	});
+}
+
+function loadGhost(ghost) {
+	// Save it using the Chrome extension storage API.
+	chrome.storage.sync.get('ghostPersistent', function(persistent) {
+		// Notify that we saved.
+		console.log(chrome.runtime.lastError);
+		if(persistent){
+			ghost.persistent = persistent;
+		}
+
+	});
+}
 
 //https://gist.github.com/danharper/8364399 

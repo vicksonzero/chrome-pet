@@ -40,6 +40,7 @@ module.exports = function(ghostScript){
 		// actually speak the phrase
 		game.speak( phrase );
 	};
+	
 	/**
 	 * phrasePersist:{list:[0,10,9,0,0,...]}	// Ghost.RANDOM
 	 * phrasePersist:{count:0.5, list:[0,1,2,0,0,...]}	// Ghost.RANDOM // percentage weight. unsupported now

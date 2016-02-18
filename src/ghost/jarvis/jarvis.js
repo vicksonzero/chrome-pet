@@ -12,23 +12,11 @@ module.exports = {
 		lastSpoken: 0
 	},
 
-	onGhostSelected: function(game){
-		this.greetRandom(game);
-	},
-	onWake: function(game){
-		this.greetRandom(game);
-	},
 	onOpenSettings: function(game){
-
-	},
-	onBored: function(game) {
 
 	},
 	onMessage:function(game) {
 
-	},
-	greetRandom: function greetRandom (game) {
-		game.speak(this.getGreetingPhrase());
 	},
 
 
@@ -52,7 +40,7 @@ module.exports = {
 		},
 		greetings:{
 			random: 0,
-			max: 10,		// no need if not random
+			nonoverlap: 10,		// no need if not random
 			list:[
 				"Hello _user. _phrase[timePhrase]",
 				"Oh... it's YOU. It's been a long time, how have you been?",
@@ -81,6 +69,13 @@ module.exports = {
 				"Crisp to da maximum",
 				// Toy Story
 				"There's a snake in your boot!",
+			]
+		},
+		bored:{
+			random: 1,
+			nonoverlap: 10,		// no need if not random
+			list:[
+				"Hey, let's have a chat"
 			]
 		},
 

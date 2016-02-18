@@ -40,18 +40,18 @@ module.exports = function(ghostScript){
 		// actually speak the phrase
 		game.speak( phrase );
 	};
-	
+
 	/**
 	 * phrasePersist:{list:[0,10,9,0,0,...]}	// Ghost.RANDOM
 	 * phrasePersist:{count:0.5, list:[0,1,2,0,0,...]}	// Ghost.RANDOM // percentage weight. unsupported now
 	 * phrasePersist:{used:10}	// Ghost.SEQUENCE
-	 * 
+	 *
 	 */
 	p.randomPhrase = function randomPhrase (phraseArray, phrasePersist) {
 		var result = "";
-		var randomCount = this.scripts.greetings.max;
+		var randomCount = phraseArray.nonoverlap;
 		if(randomCount<=1){
-			randomCount = Math.floor( this.scripts.greetings.list.length*randomCount );
+			randomCount = Math.floor( phraseArray.list.length*randomCount );
 		}
 		if(!phraseArray.random){
 			result = phraseArray.list[phrasePersist.used];
@@ -124,7 +124,7 @@ module.exports = function(ghostScript){
 				this.persistent.scripts[scriptKey].list.push(0);
 			}
 		}.bind(this));
-		
+
 	};
 
 	return Ghost;

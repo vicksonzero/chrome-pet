@@ -31,19 +31,30 @@ module.exports = {
 		game.speak(this.getGreetingPhrase());
 	},
 
-	getGreetingPhrase: function getGreetingPhrase(){
-		var greetings = this.dictionary.greetings.list;
-		//console.log(greetings);
-		var index = Math.floor(Math.random()*greetings.length);
-		//var index = 0;
-		return greetings[index];
+
+	compatiblePlugins:[
+		"TimeAnnouncer"
+	],
+
+	persistent:{
+		scripts:{
+			installed:null,
+			greetings:null
+		}
 	},
 
-	dictionary:{
-
-		greetings:{
-			nonoverlap:10, // sequential:true, nonoverlap:0.5
+	scripts:{
+		installed:{
+			random: 0,
 			list:[
+				"Hello _user. I am _botName. Nice to meet you."
+			]
+		},
+		greetings:{
+			random: 0,
+			max: 10,		// no need if not random
+			list:[
+				"Hello _user. _phrase[timePhrase]",
 				"Oh... it's YOU. It's been a long time, how have you been?",
 				"Are you still there?",
 				"If life gives you lemon, make combustible lemon grenades!",
@@ -67,15 +78,38 @@ module.exports = {
 				"Power overwhelming!",
 				"For the Hor... Wait... Go, go, go!",
 				// League of Legends
-				"Crisp to the maximum",
+				"Crisp to da maximum",
 				// Toy Story
 				"There's a snake in your boot!",
 			]
+		},
+
+		timePhrase:{
+			random: 0,
+			list:[
+				"The time is now _time."
+			]
+		},
+		noPluginPhrase:{
+			random: 0,
+			list:[
+				". Hold on, do I have this plugin \"_pluginName\"?"
+			]
+		},
+		// plugin_timeAnnouncer:{
+		// 	default:{
+		// 		random: 0,
+		// 		list:[
+		// 			"Hello. _phrase[timePhrase]"
+		// 		]
+		// 	}
+		// },
+		default:{
+			random: 0,
+			list:[
+				"Hello, World."
+			]
 		}
-	},
+	}
 
-
-	// plugin data
-	plugins:{}
-
-}
+};

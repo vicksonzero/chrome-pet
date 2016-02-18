@@ -9,6 +9,7 @@
   "permissions": [
     "activeTab",
     "https://ajax.googleapis.com/",
+    "storage",
     "tts" 
   ],
 
@@ -29,10 +30,6 @@
     }
   ],
 
-  // "chrome_url_overrides" : {
-  //   "newtab": "src/newtab.html"
-  // }
-  //"icons": { "16": "calculator-16.png", "128": "calculator-128.png" }
 
   "manifest_version": 2
 }

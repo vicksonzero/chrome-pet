@@ -94,18 +94,20 @@ module.exports = function(ghostScript){
 				.replace("_time", game.getTime)
 				.replace("_date", game.getDate)
 				.replace("_botName", this.name)
-				.replace(/_phrase\[([a-zA-Z_-]+)\]/, function(match, p1){	// todo: also eat _phrase[timeAnnouncer.default]
-					if(this.scripts.hasOwnProperty(p1)){
-						var phrase = this.randomPhrase(this.scripts[p1], this.persistent.scripts[p1]);
-						return this.injectKeywords(phrase, game);
-					}else{
-						var phrase = this.randomPhrase(this.scripts.noPluginPhrase, this.persistent.scripts.noPluginPhrase);
-						phrase = phrase.replace("_pluginName", p1);
-						return this.injectKeywords(phrase, game);
-					}
-				}.bind(this))
+				.replace(/_phrase\[([a-zA-Z_-]+)\]/, this.getPhraseFromMatches.bind(this))
 		);
 		return phrase;
+	};
+
+	p.getPhraseFromMatches = function getPhraseFromMatches(match, p1){	// todo: also eat _phrase[timeAnnouncer.default]
+		if(this.scripts.hasOwnProperty(p1)){
+			var phrase = this.randomPhrase(this.scripts[p1], this.persistent.scripts[p1]);
+			return this.injectKeywords(phrase, game);
+		}else{
+			var phrase = this.randomPhrase(this.scripts.noPluginPhrase, this.persistent.scripts.noPluginPhrase);
+			phrase = phrase.replace("_pluginName", p1);
+			return this.injectKeywords(phrase, game);
+		}
 	};
 
 	p.setPersistent = function setPersistent (val) {

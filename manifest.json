@@ -1,8 +1,8 @@
 {
 
-  "name": "Hello World!",
-  "description": "My first Chrome App.",
-  "version": "0.1",
+  "name": "chrome pets",
+  "description": "personal cyber navi like rockman.exe and JARVIS",
+  "version": "0.1.2",
 
   "minimum_chrome_version": "40",
 
@@ -11,6 +11,7 @@
     "https://ajax.googleapis.com/",
     "storage",
     "alarms",
+    "background",
     "tts" 
   ],
 

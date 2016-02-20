@@ -23,14 +23,15 @@ module.exports = (function () {
 		this.super.init.call(this, ghost);
 
 		var nextAnouncementDate = new Date();
-		nextAnouncementDate.setMinutes(0, 0, 0);
-		nextAnouncementDate.setHours(nextAnouncementDate.getHours());
+		//nextAnouncementDate.setMinutes(0, 0, 0);
+		nextAnouncementDate.setHours(nextAnouncementDate.getHours()+1,0,0,0);
 
 		// // debug
 		// nextAnouncementDate = new Date();
 		// nextAnouncementDate.setHours(20,44,0,0,0);
 
 		this.alarm = this.game.chrome.alarms.create(this.name, {when: nextAnouncementDate.getTime(), periodInMinutes: 60});
+		//this.alarm = this.game.chrome.alarms.create(this.name, {when: Date.now(), periodInMinutes: 2});
 
 
 		this.game.chrome.alarms.onAlarm.addListener(this.onAlarm.bind(this));

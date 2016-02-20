@@ -35,8 +35,8 @@ module.exports = (function(){
 	p.getTime = function getTime() {
 		var now = new Date();
 		var time = ""
-			+ now.getHours() + ":"
-			+ now.getMinutes();
+			+ zeroPad( now.getHours() ) + ":"
+			+ zeroPad( now.getMinutes() );
 		return time;
 	};
 
@@ -78,6 +78,13 @@ module.exports = (function(){
 	p.clearGhost = function clearGhost (callback) {
 		this.chrome.storage.sync.remove('ghostPersistent',callback);
 	};
+	function zeroPad (num) {
+		if(num>=10){
+			return ""+num;
+		}else{
+			return "0"+num;
+		}
+	}
 
 	return Game;
 })();

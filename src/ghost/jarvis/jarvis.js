@@ -40,7 +40,7 @@ module.exports = {
 			]
 		},
 		greetings:{
-			random: 0,
+			random: 1,
 			nonoverlap: 10,		// no need if not random
 			list:[
 				"Hello _user. _phrase[timePhrase]",
@@ -97,7 +97,7 @@ module.exports = {
 		plugin_timeAnnouncer_default:{
 			random: 0,
 			list:[
-				"Hello. _phrase[timePhrase]"
+				"Hello _user. _phrase[timePhrase]"
 			]
 		},
 		default:{

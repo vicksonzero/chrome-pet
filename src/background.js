@@ -1,8 +1,10 @@
 
 const Logger = require("./js/lib/Logger");
+const Game = require("./Game");
 
 var ghostScript = require("./ghost/jarvis/jarvis");
 var Ghost = require("./js/Ghost")(ghostScript);
+const TimeAnnouncer = require("./plugins/TimeAnnouncer");
 var username = "Dickson";
 var _logger = new Logger("Game");
 
@@ -30,6 +32,10 @@ chrome.runtime.onInstalled.addListener(function(){
 		// final check of ghost and let it come to life
 		console.log(game.ghostInstance);
 		game.ghostInstance.onInstalled(game);
+	})
+	.then(function(){
+
+		game.ghostInstance.addPlugin(new TimeAnnouncer(game));
 	});
 
 	var recognition = new webkitSpeechRecognition();

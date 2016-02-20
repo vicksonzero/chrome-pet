@@ -1,6 +1,6 @@
-const Logger = require("./lib/Logger");
+const Logger = require("./js/lib/Logger");
 
-module.exports = function(){
+module.exports = (function(){
 	function Game(chrome){
 		this.chrome = chrome;
 
@@ -8,7 +8,6 @@ module.exports = function(){
 		this.ghostScriptFile = null;
 		this.ghostScriptObject = null;
 		this._logger = new Logger("Game");
-		console.log(this._logger);
 	}
 
 
@@ -81,4 +80,4 @@ module.exports = function(){
 	};
 
 	return Game;
-};
+})();

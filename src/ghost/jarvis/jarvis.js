@@ -26,8 +26,9 @@ module.exports = {
 
 	persistent:{
 		scripts:{
-			installed:null,
-			greetings:null
+			installed: null,
+			greetings: null,
+			plugin_timeAnnouncer_default: null
 		}
 	},
 
@@ -82,23 +83,23 @@ module.exports = {
 		timePhrase:{
 			random: 0,
 			list:[
-				"The time is now _time."
+				"The time is now _time.",
+				"It is now _time."
 			]
 		},
 		noPluginPhrase:{
 			random: 0,
 			list:[
-				". Hold on, do I have this plugin \"_pluginName\"?"
+				". Hold on, do I have this plugin \"_pluginName\"?",
+				"Sorry. I don't have a plugin called \"_pluginName\""
 			]
 		},
-		// plugin_timeAnnouncer:{
-		// 	default:{
-		// 		random: 0,
-		// 		list:[
-		// 			"Hello. _phrase[timePhrase]"
-		// 		]
-		// 	}
-		// },
+		plugin_timeAnnouncer_default:{
+			random: 0,
+			list:[
+				"Hello. _phrase[timePhrase]"
+			]
+		},
 		default:{
 			random: 0,
 			list:[

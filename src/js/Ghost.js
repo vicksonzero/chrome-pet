@@ -5,6 +5,8 @@ module.exports = function(ghostScript){
 		this.user = username;
 		this._logger = new Logger("Ghost");
 		console.log(this._logger);
+
+		this.plugins = [];
 	}
 
 	function validateGhostScript (ghostScript) {
@@ -32,7 +34,7 @@ module.exports = function(ghostScript){
 		var phrase = this.randomPhrase(this.scripts.greetings, this.persistent.scripts.greetings);
 
 		// debug
-		phrase = this.scripts.greetings.list[0];
+		//phrase = this.scripts.greetings.list[0];
 
 		// flesh out by filling in dynamic stuffs
 		phrase = this.injectKeywords(phrase, game);
@@ -55,7 +57,10 @@ module.exports = function(ghostScript){
 		}
 		if(!phraseArray.random){
 			result = phraseArray.list[phrasePersist.used];
-			phrasePersist.used = (phrasePersist.used++)%phraseArray.list.length;
+			console.log("HI");
+			console.log(phraseArray.list.length);
+			phrasePersist.used = (phrasePersist.used+1)%phraseArray.list.length;
+			console.log(phrasePersist);
 			return result;
 		}else{
 			// move flag forward
@@ -70,7 +75,7 @@ module.exports = function(ghostScript){
 			for(var i=0; i < phraseArray.list.length; i++){
 
 				// loop through the used array, wrap
-				index = (index++)%phraseArray.list.length;
+				index = (index+1)%phraseArray.list.length;
 
 				// if unused
 				if(!phrasePersist.list[index]){
@@ -128,6 +133,13 @@ module.exports = function(ghostScript){
 		}.bind(this));
 
 	};
+
+	p.addPlugin = function addPlugin(plugin) {
+		this._logger.info("Plugin: "+plugin.name+" installed");
+		this.plugins.push(plugin);
+		plugin.init(this);
+	};
+	
 
 	return Ghost;
 };

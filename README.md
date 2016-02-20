@@ -17,7 +17,7 @@ Roadmap:
 5. link with google now
 6. internationalization with switchable GHOSTs
 7. SHELL and switchable SHELL
-8. yaml GHOST script
+8. yaml GHOST script with https://github.com/nodeca/js-yaml
 9. compound GHOST scripts
 
 # Run
